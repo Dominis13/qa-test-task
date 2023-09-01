@@ -1,0 +1,42 @@
+### Поставщик регистрирует поставку товара 01.09 на 13:00, метод возвращает id заказа
+POST http://localhost:3000/api/supply
+Content-Type: application/json
+
+{
+  "vehicle": "А123ВТ",
+  "date": "01-09-2023 13",
+  "slot": 1,
+  "orders": [
+    {"id": 1, "goods": [{"sku": 1001, "quantity": 10}]}
+  ]
+}
+
+### Поставщик редактирует поставку, добавляет отгрузку по ещё одному заказу, которого к нему не поступало
+PATCH http://localhost:3000/api/supply
+Content-Type: application/json
+
+{
+  "id": 100000,
+  "vehicle": "А123ВТ",
+  "date": "01-09-2023 13",
+  "slot": 1,
+  "orders": [
+    {"id": 1, "goods": [{"sku": 1001, "quantity": 10}]},
+    {"id": 2, "goods": [{"sku": 2001, "quantity": 5}]}
+  ]
+}
+
+### АПИ для поставщика, чтобы получить смс для проезда
+POST http://localhost:3000/api/vehicle
+Content-Type: application/json
+
+{
+  "vehicle": "А123ВТ",
+  "date": "01-09-2023 13:00",
+  "slot": 1
+}
+
+### АПИ для получения деталей по заказу
+GET http://localhost:3000/api/orders/2
+Content-Type: application/json
+
